@@ -1,0 +1,81 @@
+chat_url: "https://chat.deepseek.com/"
+user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+user_data_dir: "browser_data"
+chromium_executable_path: 'C:\Users\39740\AppData\Local\ms-playwright\chromium-1234\chrome-win64\chrome.exe'
+log_file: "app.log"
+
+# 是否发送初始提示词
+# true: 按逻辑发送；false: 永不发送
+initial_prompt_enabled: true
+
+# 使用当前会话（y）时是否也发送提示词
+# false: 使用当前会话时跳过（默认，避免污染历史对话）
+# true: 每次都发
+initial_prompt_on_current_session: false
+
+selectors:
+  message_input: "textarea[name='search']"
+  send_button: "div[role='button'].ds-button--primary.ds-button--circle:has(svg path[d^='M8.3125']):not(.ds-button--disabled)"
+  stop_button: "div[role='button'].ds-button--primary.ds-button--circle:has(svg path[d^='M2 4.88'])"
+  ai_response: "div.ds-markdown.ds-assistant-message-main-content"
+  file_input: "input[type='file']"
+
+stop_button_fallbacks:
+  - "div[role='button'][aria-label*='停止']"
+  - "button[aria-label*='停止']"
+  - "div[role='button'][aria-label*='stop' i]"
+
+timeouts:
+  login: 300000
+  ai_response: 120000
+  tool_exec: 60
+  upload_wait: 30000
+
+tool_command_format:
+  prefix: "[[TOOL:"
+  suffix: "]]"
+  code_block_start: "```tool\n"
+  code_block_end: "\n```"
+  multi_tool_separator: "|||"
+
+ui_noise_lines:
+  - "tool"
+  - "copy"
+  - "download"
+  - "复制"
+  - "下载"
+
+security:
+  allow_shell: true
+  allow_python: true
+  command_whitelist: []
+  high_risk_patterns:
+    - "rm -rf"
+    - "rm -fr"
+    - "rm -r /"
+    - "mkfs"
+    - "format\\s+[a-z]:"
+    - "shutdown"
+    - "reboot"
+    - "halt"
+    - "poweroff"
+    - "diskpart"
+    - "bcdedit"
+    - "reg delete"
+    - "del /f /s /q"
+    - "rd /s /q"
+    - "rmdir /s /q"
+    - "takeown /f"
+    - "cipher /w"
+    - ":(){:|:&};:"
+  high_risk_tools: ["delete_file", "kill_process", "set_wallpaper"]
+  write_deny_paths:
+    - 'C:\\Windows\\'
+    - 'C:\\Program Files\\'
+    - 'C:\\Program Files (x86)\\'
+    - 'C:\\ProgramData\\'
+  write_allow_paths:
+    - 'D:\\'
+    - 'C:\\Users\\39740\\Desktop\\'
+    - 'C:\\Users\\39740\\Downloads\\'
+  write_confirm_mode: 'new-dir'

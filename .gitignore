@@ -1,0 +1,41 @@
+# 依赖
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# 浏览器持久化（登录态，绝不提交）
+browser_data/
+browser_data_gateway/
+deepseek_login_state.json
+
+# 运行时数据
+app.log
+*.log
+session_history.json
+session.md
+session.pdf
+memory.json
+todos.json
+ai-assistant-sessions.json
+ai-assistant.log
+data/
+
+# Go 编译产物
+go-agent.exe
+go-agent/go-agent.exe
+*.exe
+*.test
+
+# 临时文件
+snapshot/
+*.bak
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.iml
